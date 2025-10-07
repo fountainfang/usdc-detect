@@ -1,17 +1,20 @@
 # api/index.py
+import os
 import time
 import hmac
 import base64
 import hashlib
 import requests
-from datetime import datetime
-import os
 import json
+from datetime import datetime
 
 # ---------------- 配置 ----------------
-API_KEY = os.environ["BITGET_API_KEY"]
-SECRET_KEY = os.environ["BITGET_SECRET_KEY"]
-PASSPHRASE = os.environ["BITGET_PASSPHRASE"]
+API_KEY = os.environ.get("BITGET_API_KEY", "")
+SECRET_KEY = os.environ.get("BITGET_SECRET_KEY", "")
+PASSPHRASE = os.environ.get("BITGET_PASSPHRASE", "")
+
+if not API_KEY or not SECRET_KEY or not PASSPHRASE:
+    raise ValueError("⚠️ BITGET 环境变量未设置，请检查 Vercel 设置")
 
 TARGET_COIN = "USDC"      # 可改成 "USDT"
 PRICE_LOW = 0.9991        # USDC/USDT 下限
