@@ -6,10 +6,7 @@ import hashlib
 import requests
 from datetime import datetime
 import os
-from dotenv import load_dotenv
 
-# 加载环境变量
-load_dotenv()
 
 API_KEY = os.getenv("BITGET_API_KEY")
 SECRET_KEY = os.getenv("BITGET_SECRET_KEY")
