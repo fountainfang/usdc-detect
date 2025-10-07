@@ -13,7 +13,7 @@ SECRET_KEY = os.getenv("BITGET_SECRET_KEY")
 PASSPHRASE = os.getenv("BITGET_PASSPHRASE")
 TARGET_COIN = "USDC"
 BASE_URL = "https://api.bitget.com"
-PRICE_LOW = 0.9995
+PRICE_LOW = 0.9991
 PRICE_HIGH = 0.9997
 
 def generate_signature(timestamp, method, request_path, body=""):
