@@ -6,6 +6,7 @@ import hashlib
 import requests
 from datetime import datetime
 import os
+import json
 
 # ---------------- 配置 ----------------
 API_KEY = os.environ["BITGET_API_KEY"]
@@ -127,11 +128,11 @@ def handler(request):
         return {
             "statusCode": 200,
             "headers": {"Content-Type": "application/json"},
-            "body": result
+            "body": json.dumps(result)
         }
     except Exception as e:
         return {
             "statusCode": 500,
             "headers": {"Content-Type": "application/json"},
-            "body": {"error": str(e)}
+            "body": json.dumps({"error": str(e)})
         }
