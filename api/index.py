@@ -1,17 +1,15 @@
-# api/index.py
 import os
 import time
 import hmac
 import base64
 import hashlib
 import requests
-import json
 from datetime import datetime
 
 # ---------------- 配置 ----------------
-API_KEY = os.environ.get("BITGET_API_KEY", "")
-SECRET_KEY = os.environ.get("BITGET_SECRET_KEY", "")
-PASSPHRASE = os.environ.get("BITGET_PASSPHRASE", "")
+API_KEY = os.environ.get("BITGET_API_KEY")
+SECRET_KEY = os.environ.get("BITGET_SECRET_KEY")
+PASSPHRASE = os.environ.get("BITGET_PASSPHRASE")
 
 if not API_KEY or not SECRET_KEY or not PASSPHRASE:
     raise ValueError("⚠️ BITGET 环境变量未设置，请检查 Vercel 设置")
@@ -109,7 +107,7 @@ def get_usdc_usdt_price():
         print(f"❌ 获取价格失败: {e}")
         return None
 
-# ---------------- 主函数 ----------------
+# ---------------- 主逻辑 ----------------
 def run_monitor():
     """单次执行监控"""
     print(f"🔍 开始监控 [{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}]")
@@ -124,18 +122,18 @@ def run_monitor():
 
     return {"status": "ok"}
 
-# ---------------- Vercel 入口 ----------------
+# ---------------- Vercel Serverless 入口 ----------------
 def handler(request):
     try:
         result = run_monitor()
         return {
             "statusCode": 200,
             "headers": {"Content-Type": "application/json"},
-            "body": json.dumps(result)
+            "body": result
         }
     except Exception as e:
         return {
             "statusCode": 500,
             "headers": {"Content-Type": "application/json"},
-            "body": json.dumps({"error": str(e)})
+            "body": {"error": str(e)}
         }
