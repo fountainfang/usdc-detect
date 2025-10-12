@@ -59,7 +59,7 @@ def check_earn_status(coin):
         if data.get("code") == "00000":
             for product in data.get("data", []):
                 if product.get("coin") == coin and (product.get("status") == "in_progress" or product.get("canPurchase")):
-                    return True, f"{coin} 简单赚币可申购"
+                    return True, f"{coin} {product.get(productLevel)}简单赚币可申购"
             return False, f"{coin} 简单赚币暂不可申购"
         else:
             return False, f"API返回错误: {data}"
@@ -90,8 +90,8 @@ class handler(BaseHTTPRequestHandler):
             }
             is_available, message = check_earn_status(TARGET_COIN)
             results["earn_status"] = {"coin": TARGET_COIN, "available": is_available, "message": message}
-            if is_available and send_bark_notification(f"{TARGET_COIN}简单赚币已开放"):
-                results["notifications"].append(f"✅ {TARGET_COIN} 开放通知已发送")
+            # if is_available and send_bark_notification(f"{TARGET_COIN}简单赚币已开放"):
+            #     results["notifications"].append(f"✅ {TARGET_COIN} 开放通知已发送")
             price, error = get_usdc_usdt_price()
             if price:
                 results["price_status"] = {
