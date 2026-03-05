@@ -31,3 +31,17 @@ This is an automated arbitrage monitoring system developed in Python, designed t
 Install the required Python dependencies:
 ```bash
 pip install python-telegram-bot requests python-dotenv
+
+
+### 2. Configuration
+Create a `.env` file in the root directory and fill in your credentials:
+
+```env
+TELEGRAM_BOT_TOKEN="your_telegram_bot_token"
+TELEGRAM_CHAT_ID="your_telegram_chat_id"
+BARK_URL="your_bark_server_url"
+
+
+### 3. Run the Bot
+Bash
+python main.py
