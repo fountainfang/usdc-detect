@@ -101,7 +101,7 @@ BARK_URL="your_bark_server_url"
 ## 3️⃣ Run the Bot
 
 ``` bash
-python main.py
+python monitor.py
 ```
 
 ------------------------------------------------------------------------
