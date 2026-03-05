@@ -1,24 +1,33 @@
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fvercel%2Fexamples%2Ftree%2Fmain%2Fpython%2Fhello-world&demo-title=Python%20Hello%20World&demo-description=Use%20Python%20on%20Vercel%20with%20Serverless%20Functions%20using%20the%20Python%20Runtime.&demo-url=https%3A%2F%2Fpython-hello-world.vercel.app%2F&demo-image=https://assets.vercel.com/image/upload/v1669994600/random/python.png)
+# Arbitrage Monitor Bot (Binance & Bitget)
 
-# Python Hello World
+This is an automated arbitrage monitoring system developed in Python, designed to monitor real-time price discrepancies (Bid Price Gap) for the **USDC/USDT** pair between **Binance** and **Bitget** exchanges. The system integrates a Telegram Bot control interface and Bark push notifications to provide immediate data support for high-frequency decision-making.
 
-This example shows how to use Python on Vercel with Serverless Functions using the [Python Runtime](https://vercel.com/docs/concepts/functions/serverless-functions/runtimes/python).
 
-## Demo
 
-https://python-hello-world.vercel.app/
+## 🌟 Core Features
 
-## Running Locally
+* **Real-time Data Ingestion**: Utilizes asynchronous polling to fetch the latest Order Book (bookTicker) data from Binance and Bitget REST APIs every 5 seconds.
+* **Intelligent Strategy Logic**:
+    * **Spread Calculation**: Automatically compares Bid prices across exchanges and calculates the absolute spread.
+    * **Strategy Recommendation**: Suggests "Maker Buy" vs. "Taker Sell" combinations based on the direction of the price gap.
+* **Multi-level Alerting Mechanism**:
+    * Dynamically adjusts notification frequency based on spread size: Alerts every 1 minute for spreads $\ge 0.0002$; every 2 minutes for spreads $\ge 0.0001$.
+    * Supports dual-channel notifications via **Bark** (iOS push) and **Telegram**.
+* **Interactive Telegram Console**:
+    * Features a custom menu (`ReplyKeyboardMarkup`) for commands like `/start`, `/stop`, `/pause`, and `/status`.
+    * **Smart Pause (`/pause`)**: Mutes notifications when prices are stagnant and automatically resumes when a price change is detected.
+* **Robust Design**: Includes comprehensive exception handling, logging, and secure configuration management using `.env`.
 
+## 🛠️ Tech Stack
+
+* **Language**: Python 3.x
+* **Core Libraries**: `python-telegram-bot` (Asynchronous bot framework), `requests` (API communication), `python-dotenv` (Environment management).
+* **API Integrations**: Binance Spot API, Bitget Spot API v2.
+* **Push Services**: Bark API, Telegram Bot API.
+
+## 🚀 Quick Start
+
+### 1. Prerequisites
+Install the required Python dependencies:
 ```bash
-npm i -g vercel
-vercel dev
-```
-
-Your Python API is now available at `http://localhost:3000/api`.
-
-## One-Click Deploy
-
-Deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=vercel-examples):
-
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fvercel%2Fexamples%2Ftree%2Fmain%2Fpython%2Fhello-world&demo-title=Python%20Hello%20World&demo-description=Use%20Python%20on%20Vercel%20with%20Serverless%20Functions%20using%20the%20Python%20Runtime.&demo-url=https%3A%2F%2Fpython-hello-world.vercel.app%2F&demo-image=https://assets.vercel.com/image/upload/v1669994600/random/python.png)
+pip install python-telegram-bot requests python-dotenv
